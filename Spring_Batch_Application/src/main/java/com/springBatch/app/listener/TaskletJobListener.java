@@ -9,18 +9,18 @@ public class TaskletJobListener implements JobExecutionListener {
 
 	@Override
 	public void beforeJob(JobExecution jobExecution) {
-		System.out.println("Before Job name = " + jobExecution.getJobInstance().getJobName());
-		System.out.println("Job Parameters = " + jobExecution.getJobParameters());
-		System.out.println("Job Execution Context = " + jobExecution.getExecutionContext());
+		System.out.println("Before Tasklet Job name = " + jobExecution.getJobInstance().getJobName());
+		System.out.println("Tasklet Job Parameters = " + jobExecution.getJobParameters());
+		System.out.println("Tasklet Job Execution Context = " + jobExecution.getExecutionContext());
 
-		jobExecution.getExecutionContext().put("Job_Execution_Context", "Job execution context value");
+		jobExecution.getExecutionContext().put("Tasklet_Job_Execution_Context", "Tasklet Job execution context value");
 	}
 
 	@Override
 	public void afterJob(JobExecution jobExecution) {
-		System.out.println("After Job name = " + jobExecution.getJobInstance().getJobName());
-		System.out.println("Job Parameters = " + jobExecution.getJobParameters());
-		System.out.println("Job Execution Context = " + jobExecution.getExecutionContext());
+		System.out.println("After Tasklet Job name = " + jobExecution.getJobInstance().getJobName());
+		System.out.println("Tasklet Job Parameters = " + jobExecution.getJobParameters());
+		System.out.println("Tasklet Job Execution Context = " + jobExecution.getExecutionContext());
 	}
 
 }
