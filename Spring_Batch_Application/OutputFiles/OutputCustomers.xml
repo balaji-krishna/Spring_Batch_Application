@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<students>
+	<student>
+		<email>Balaji@gmail.com</email>
+		<id>1</id>
+		<lastName>Krishna</lastName>
+	</student>
+	<student>
+		<email>Harish@gmail.com</email>
+		<id>2</id>
+		<lastName>Krishna</lastName>
+	</student>
+	<student>
+		<email>Deeraj@gmail.com</email>
+		<id>3</id>
+		<lastName>Kumar</lastName>
+	</student>
+	<student>
+		<email>Ajay@gmail.com</email>
+		<id>4</id>
+		<lastName>Kumar</lastName>
+	</student>
+	<student>
+		<email>Seeru@gmail.com</email>
+		<id>5</id>
+		<lastName>Raj</lastName>
+	</student>
+	<student>
+		<email>Karuna@gmail.com</email>
+		<id>6</id>
+		<lastName>Karan</lastName>
+	</student>
+	<student>
+		<email>Kaushik@gmail.com</email>
+		<id>7</id>
+		<lastName>T</lastName>
+	</student>
+</students>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<students>
+	
+	<student>
+		<id>1</id>
+		<f_n>Balaji</f_n>
+		<lastName>Krishna</lastName>
+		<email>Balaji@gmail.com</email>
+	</student>
+	<student>
+		<id>2</id>
+		<f_n>Harish</f_n>
+		<lastName>Krishna</lastName>
+		<email>Harish@gmail.com</email>
+	</student>
+	<student>
+		<id>3</id>
+		<f_n>Deeraj</f_n>
+		<lastName>Kumar</lastName>
+		<email>Deeraj@gmail.com</email>
+	</student>
+	<student>
+		<id>4</id>
+		<f_n>Ajay</f_n>
+		<lastName>Kumar</lastName>
+		<email>Ajay@gmail.com</email>
+	</student>
+	<student>
+		<id>5</id>
+		<f_n>Seeru</f_n>
+		<lastName>Raj</lastName>
+		<email>Seeru@gmail.com</email>
+	</student>
+	<student>
+		<id>6</id>
+		<f_n>Karuna</f_n>
+		<lastName>Karan</lastName>
+		<email>Karuna@gmail.com</email>
+	</student>
+	<student>
+		<id>7</id>
+		<f_n>Kaushik</f_n>
+		<lastName>T</lastName>
+		<email>Kaushik@gmail.com</email>
+	</student>
+
+</students>
