@@ -1,0 +1,9 @@
+[
+ {"id":1,"firstName":"Balaji","lastName":"Krishna","email":"Balaji@gmail.com"},
+ {"id":2,"firstName":"Harish","lastName":"Krishna","email":"Harish@gmail.com"},
+ {"id":3,"firstName":"Deeraj","lastName":"Kumar","email":"Deeraj@gmail.com"},
+ {"id":4,"firstName":"Ajay","lastName":"Kumar","email":"Ajay@gmail.com"},
+ {"id":5,"firstName":"Koushik","lastName":"T","email":"Koushik@gmail.com"},
+ {"id":6,"firstName":"Karuna","lastName":"Karan","email":"Karuna@gmail.com"},
+ {"id":7,"firstName":"Seeru","lastName":"Raj","email":"Seeru@gmail.com"}
+]
