@@ -50,7 +50,8 @@ public class XmlChunkJobConfig {
 				new StaxEventItemReader<CustomerXml>();
 		
 		staxEventItemReader.setResource(fileSystemResource);
-		staxEventItemReader.setFragmentRootElementName("student");
+		staxEventItemReader.setStrict(false);
+		staxEventItemReader.setFragmentRootElementName("customer");
 		staxEventItemReader.setUnmarshaller(new Jaxb2Marshaller() {
 			{
 				setClassesToBeBound(CustomerXml.class);
@@ -68,7 +69,7 @@ public class XmlChunkJobConfig {
 				new StaxEventItemWriter<CustomerXml>();
 		
 		staxEventItemWriter.setResource(fileSystemResource);
-		staxEventItemWriter.setRootTagName("students");
+		staxEventItemWriter.setRootTagName("customers");
 		
 		staxEventItemWriter.setMarshaller(new Jaxb2Marshaller() {
 			{

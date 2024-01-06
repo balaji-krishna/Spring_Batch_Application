@@ -2,7 +2,7 @@ package com.springBatch.app.entity;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "student")
+@XmlRootElement(name = "customer")
 public class CustomerXml {
 
 	private Long id;
