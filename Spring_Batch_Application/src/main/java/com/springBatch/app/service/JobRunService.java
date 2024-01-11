@@ -46,6 +46,10 @@ public class JobRunService {
 	@Autowired
 	Job mainTaskletJob;
 	
+	@Qualifier("restCallChunkJob")
+	@Autowired
+	Job restCallChunkJob;
+	
 	@Async
 	public void startJob(String jobName, List<JobParametersRequest> jobParamsRequestList) {
 		Map<String, JobParameter> params = new HashMap<>();
@@ -72,6 +76,8 @@ public class JobRunService {
 				jobExecution = jobLauncher.run(jdbcChunkJob, jobParameters);
 			} else if(jobName.equals("Main_Tasklet_Job")) {
 				jobExecution = jobLauncher.run(mainTaskletJob, jobParameters);
+			} else if(jobName.equals("Rest_Chunk_Job")) {
+				jobExecution = jobLauncher.run(restCallChunkJob, jobParameters);
 			}
 			System.out.println("Job Execution ID = " + jobExecution.getId());
 		}catch(Exception e) {
