@@ -10,6 +10,7 @@ import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.core.step.skip.AlwaysSkipItemSkipPolicy;
 import org.springframework.batch.item.file.FlatFileFooterCallback;
 import org.springframework.batch.item.file.FlatFileHeaderCallback;
 import org.springframework.batch.item.file.FlatFileItemReader;
@@ -26,6 +27,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
 
 import com.springBatch.app.entity.CustomerCsv;
+import com.springBatch.app.listener.FlatFileSkipListener;
 
 @Configuration
 public class FlatFileChunkConfig {
@@ -35,6 +37,9 @@ public class FlatFileChunkConfig {
 
 	@Autowired
 	private StepBuilderFactory stepBuilderFactory;
+	
+	@Autowired
+	private FlatFileSkipListener flatFileSkipListener;
 	
 	@Bean
 	public Job flatFileChunkJob() {
@@ -50,6 +55,10 @@ public class FlatFileChunkConfig {
 				.<CustomerCsv, CustomerCsv>chunk(2)
 				.reader(flatFileItemReader(null))
 				.writer(flatFileItemWriter(null))
+				.faultTolerant()
+				.skip(Throwable.class)
+				.skipPolicy(new AlwaysSkipItemSkipPolicy())
+				.listener(flatFileSkipListener)
 				.build();
 	}
 	
