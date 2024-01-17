@@ -2,6 +2,8 @@ package com.springBatch.app.config;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -18,7 +20,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
 
-import com.springBatch.app.entity.CustomerJson;
+import com.springBatch.app.entity.Customer;
 import com.springBatch.app.listener.JsonSkipListener;
 
 @Configuration
@@ -33,6 +35,8 @@ public class JsonChunkConfig {
 	@Autowired
 	private JsonSkipListener jsonSkipListener;
 	
+	public static final Logger LOGGER = LoggerFactory.getLogger(JsonChunkConfig.class);
+	
 	@Bean
 	public Job jsonChunkJob() {
 		return jobBuilderFactory.get("Json Chunk Job")
@@ -44,7 +48,7 @@ public class JsonChunkConfig {
 	@Bean
 	public Step jsonChunkStep() {
 		return stepBuilderFactory.get("Json Chunk Step")
-				.<CustomerJson, CustomerJson>chunk(2)
+				.<Customer, Customer>chunk(2)
 				.reader(jsonItemReader(null))
 				.writer(jsonItemWriter(null))
 				.faultTolerant()
@@ -58,31 +62,31 @@ public class JsonChunkConfig {
 	
 	@StepScope
 	@Bean
-	public JsonItemReader<CustomerJson> jsonItemReader(
+	public JsonItemReader<Customer> jsonItemReader(
 			@Value("#{jobParameters['inputJson']}") FileSystemResource fileSystemResource) {
-		JsonItemReader<CustomerJson> jsonItemReader = 
-				new JsonItemReader<CustomerJson>();
+		JsonItemReader<Customer> jsonItemReader = 
+				new JsonItemReader<Customer>();
 		
 		jsonItemReader.setResource(fileSystemResource);
 		jsonItemReader.setJsonObjectReader(
-				new JacksonJsonObjectReader<>(CustomerJson.class));
+				new JacksonJsonObjectReader<>(Customer.class));
 		
 		return jsonItemReader;
 	}
 	
 	@StepScope
 	@Bean
-	public JsonFileItemWriter<CustomerJson> jsonItemWriter(
+	public JsonFileItemWriter<Customer> jsonItemWriter(
 			@Value("#{jobParameters['outputJson']}") FileSystemResource fileSystemResource) {
-		JsonFileItemWriter<CustomerJson> jsonFileItemWriter = 
-				new JsonFileItemWriter<CustomerJson>(fileSystemResource, 
-						new JacksonJsonObjectMarshaller<CustomerJson>()) {
+		JsonFileItemWriter<Customer> jsonFileItemWriter = 
+				new JsonFileItemWriter<Customer>(fileSystemResource, 
+						new JacksonJsonObjectMarshaller<Customer>()) {
 			
 			@Override
-			public String doWrite(List<? extends CustomerJson> items) {
+			public String doWrite(List<? extends Customer> items) {
 				items.stream().forEach(item -> {
 					if(item.getId() == 3) {
-						System.out.println("Inside jsonFileItemWriter");
+						LOGGER.info("Inside jsonFileItemWriter");
 						throw new NullPointerException();
 					}
 				});
