@@ -15,7 +15,7 @@ public class SecondChunkItemWriter implements ItemWriter<String> {
 	@Override
 	public void write(List<? extends String> items) throws Exception {
 		LOGGER.info("Inside Second Chunk Item Writer");
-		items.stream().forEach(System.out::println);
+		LOGGER.info("item value = {}", items);
 	}
 
 }

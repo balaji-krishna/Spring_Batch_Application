@@ -8,6 +8,7 @@ import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.springBatch.app.listener.ChunkJobListener;
 import com.springBatch.app.listener.ChunkStepListener;
@@ -18,6 +19,7 @@ import com.springBatch.app.reader.SecondChunkItemReader;
 import com.springBatch.app.writer.FirstChunkItemWriter;
 import com.springBatch.app.writer.SecondChunkItemWriter;
 
+@EnableScheduling
 @Configuration
 public class MainChunkJobConfig {
 	

@@ -15,7 +15,7 @@ public class FirstChunkItemWriter implements ItemWriter<Long> {
 	@Override
 	public void write(List<? extends Long> items) throws Exception {
 		LOGGER.info("Inside First Chunk Item Writer");
-		items.stream().forEach(System.out::println);
+		LOGGER.info("item value = {}", items);
 	}
 
 }
