@@ -9,17 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.springBatch.app.entity.FirstChunkItemProcessor;
-import com.springBatch.app.entity.FirstChunkItemReader;
-import com.springBatch.app.entity.FirstChunkItemWriter;
-import com.springBatch.app.entity.SecondChunkItemProcessor;
-import com.springBatch.app.entity.SecondChunkItemReader;
-import com.springBatch.app.entity.SecondChunkItemWriter;
 import com.springBatch.app.listener.ChunkJobListener;
 import com.springBatch.app.listener.ChunkStepListener;
+import com.springBatch.app.processor.FirstChunkItemProcessor;
+import com.springBatch.app.processor.SecondChunkItemProcessor;
+import com.springBatch.app.reader.FirstChunkItemReader;
+import com.springBatch.app.reader.SecondChunkItemReader;
+import com.springBatch.app.writer.FirstChunkItemWriter;
+import com.springBatch.app.writer.SecondChunkItemWriter;
 
 @Configuration
-public class ChunkJobConfig {
+public class MainChunkJobConfig {
 	
 	@Autowired
 	private JobBuilderFactory jobBuilderFactory;
