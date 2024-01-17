@@ -26,7 +26,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
 
-import com.springBatch.app.entity.CustomerCsv;
+import com.springBatch.app.entity.Customer;
 import com.springBatch.app.listener.FlatFileSkipListener;
 
 @Configuration
@@ -52,7 +52,7 @@ public class FlatFileChunkConfig {
 	@Bean
 	public Step flatFileChunkStep() {
 		return stepBuilderFactory.get("Flat File Chunk Step")
-				.<CustomerCsv, CustomerCsv>chunk(2)
+				.<Customer, Customer>chunk(2)
 				.reader(flatFileItemReader(null))
 				.writer(flatFileItemWriter(null))
 				.faultTolerant()
@@ -64,22 +64,22 @@ public class FlatFileChunkConfig {
 	
 	@StepScope
 	@Bean
-	public FlatFileItemReader<CustomerCsv> flatFileItemReader(
+	public FlatFileItemReader<Customer> flatFileItemReader(
 			@Value("#{jobParameters['inputCsvFile']}") FileSystemResource fileSystemResource) {
-		FlatFileItemReader<CustomerCsv> flatFileItemReader = 
-				new FlatFileItemReader<CustomerCsv>();
+		FlatFileItemReader<Customer> flatFileItemReader = 
+				new FlatFileItemReader<Customer>();
 		
 		flatFileItemReader.setResource(fileSystemResource);
 		
-		DefaultLineMapper<CustomerCsv> defaultLineMapper = new DefaultLineMapper<CustomerCsv>();
+		DefaultLineMapper<Customer> defaultLineMapper = new DefaultLineMapper<Customer>();
 
 		DelimitedLineTokenizer delimitedLineTokenizer = new DelimitedLineTokenizer();
 		delimitedLineTokenizer.setNames("ID", "First Name", "Last Name", "Email");
 
 		defaultLineMapper.setLineTokenizer(delimitedLineTokenizer);
 
-		BeanWrapperFieldSetMapper<CustomerCsv> fieldSetMapper = new BeanWrapperFieldSetMapper<CustomerCsv>();
-		fieldSetMapper.setTargetType(CustomerCsv.class);
+		BeanWrapperFieldSetMapper<Customer> fieldSetMapper = new BeanWrapperFieldSetMapper<Customer>();
+		fieldSetMapper.setTargetType(Customer.class);
 
 		defaultLineMapper.setFieldSetMapper(fieldSetMapper);
 
@@ -92,10 +92,10 @@ public class FlatFileChunkConfig {
 	
 	@StepScope
 	@Bean
-	public FlatFileItemWriter<CustomerCsv> flatFileItemWriter(
+	public FlatFileItemWriter<Customer> flatFileItemWriter(
 			@Value("#{jobParameters['outputCsvFile']}") FileSystemResource fileSystemResource) {
-		FlatFileItemWriter<CustomerCsv> flatFileItemWriter = 
-				new FlatFileItemWriter<CustomerCsv>();
+		FlatFileItemWriter<Customer> flatFileItemWriter = 
+				new FlatFileItemWriter<Customer>();
 		
 		flatFileItemWriter.setResource(fileSystemResource);
 		
@@ -106,10 +106,10 @@ public class FlatFileChunkConfig {
 			}
 		});
 		
-		BeanWrapperFieldExtractor<CustomerCsv> beanWrapperFieldExtractor = new BeanWrapperFieldExtractor<CustomerCsv>();
+		BeanWrapperFieldExtractor<Customer> beanWrapperFieldExtractor = new BeanWrapperFieldExtractor<Customer>();
 		beanWrapperFieldExtractor.setNames(new String[] {"id", "firstName", "lastName", "email"});
 		
-		DelimitedLineAggregator<CustomerCsv> delimitedLineAggregator = new DelimitedLineAggregator<CustomerCsv>();
+		DelimitedLineAggregator<Customer> delimitedLineAggregator = new DelimitedLineAggregator<Customer>();
 		delimitedLineAggregator.setFieldExtractor(beanWrapperFieldExtractor);
 		flatFileItemWriter.setLineAggregator(delimitedLineAggregator);
 		
