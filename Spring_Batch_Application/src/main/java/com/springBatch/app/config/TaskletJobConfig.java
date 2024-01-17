@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.springBatch.app.entity.FirstTasklet;
-import com.springBatch.app.entity.SecondTasklet;
 import com.springBatch.app.listener.TaskletJobListener;
 import com.springBatch.app.listener.TaskletStepListener;
+import com.springBatch.app.tasklet.FirstTasklet;
+import com.springBatch.app.tasklet.SecondTasklet;
 
 @Configuration
 public class TaskletJobConfig {
