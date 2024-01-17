@@ -50,6 +50,10 @@ public class JobRunService {
 	@Autowired
 	Job restCallChunkJob;
 	
+	@Qualifier("jpaChunkJob")
+	@Autowired
+	Job jpaChunkJob;
+	
 	@Async
 	public void startJob(String jobName, List<JobParametersRequest> jobParamsRequestList) {
 		Map<String, JobParameter> params = new HashMap<>();
@@ -78,6 +82,8 @@ public class JobRunService {
 				jobExecution = jobLauncher.run(mainTaskletJob, jobParameters);
 			} else if(jobName.equals("Rest_Chunk_Job")) {
 				jobExecution = jobLauncher.run(restCallChunkJob, jobParameters);
+			} else if(jobName.equals("JPA_Chunk_Job")) {
+				jobExecution = jobLauncher.run(jpaChunkJob, jobParameters);
 			}
 			System.out.println("Job Execution ID = " + jobExecution.getId());
 		}catch(Exception e) {
