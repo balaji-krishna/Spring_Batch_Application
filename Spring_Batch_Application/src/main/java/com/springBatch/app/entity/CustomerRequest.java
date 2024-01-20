@@ -1,6 +1,6 @@
 package com.springBatch.app.entity;
 
-public class CustomerCsv {
+public class CustomerRequest {
 
 	private Long id;
 
@@ -42,11 +42,11 @@ public class CustomerCsv {
 		this.email = email;
 	}
 
-	public CustomerCsv() {
+	public CustomerRequest() {
 		super();
 	}
 
-	public CustomerCsv(Long id, String firstName, String lastName, String email) {
+	public CustomerRequest(Long id, String firstName, String lastName, String email) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -56,7 +56,7 @@ public class CustomerCsv {
 
 	@Override
 	public String toString() {
-		return "CustomerCsv [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+		return "CustomerRequest [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
 				+ "]";
 	}
 	
