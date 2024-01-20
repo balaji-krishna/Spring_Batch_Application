@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParameter;
@@ -18,6 +20,8 @@ import com.springBatch.app.dto.JobParametersRequest;
 
 @Service
 public class JobRunService {
+	
+	public static final Logger LOGGER = LoggerFactory.getLogger(JobRunService.class);
 	
 	@Autowired
 	JobLauncher jobLauncher;
@@ -85,9 +89,9 @@ public class JobRunService {
 			} else if(jobName.equals("JPA_Chunk_Job")) {
 				jobExecution = jobLauncher.run(jpaChunkJob, jobParameters);
 			}
-			System.out.println("Job Execution ID = " + jobExecution.getId());
+			LOGGER.info("Job Execution ID = {}", jobExecution.getId());
 		}catch(Exception e) {
-			System.out.println("Exception while starting job");
+			LOGGER.error("Exception while starting job");
 		}
 	}
 

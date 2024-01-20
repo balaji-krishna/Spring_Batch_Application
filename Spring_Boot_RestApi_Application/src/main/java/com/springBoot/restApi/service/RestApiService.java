@@ -24,13 +24,11 @@ public class RestApiService {
 	}
 
 	public CustomerResponse saveCustomer(CustomerRequest customerRequest) {
-		System.out.println("customerRequest == " + customerRequest.toString());
 		CustomerResponse customerResponse = new CustomerResponse();
 		customerResponse.setId(customerRequest.getId());
 		customerResponse.setFirstName(customerRequest.getFirstName());
 		customerResponse.setLastName(customerRequest.getLastName());
 		customerResponse.setEmail(customerRequest.getEmail());
-		System.out.println("customerResponse == " + customerResponse.toString());
 		return customerResponse;
 	}
 
