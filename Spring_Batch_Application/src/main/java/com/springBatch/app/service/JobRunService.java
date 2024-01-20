@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import com.springBatch.app.entity.JobParametersRequest;
+import com.springBatch.app.dto.JobParametersRequest;
 
 @Service
 public class JobRunService {

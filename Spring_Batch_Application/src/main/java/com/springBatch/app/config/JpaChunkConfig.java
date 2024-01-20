@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.JpaTransactionManager;
 
-import com.springBatch.app.entity.CustomerJpa;
+import com.springBatch.app.entity.Customer;
 
 @Configuration
 public class JpaChunkConfig extends DefaultBatchConfigurer {
@@ -26,9 +26,6 @@ public class JpaChunkConfig extends DefaultBatchConfigurer {
 
 	@Autowired
 	private StepBuilderFactory stepBuilderFactory;
-	
-	@Autowired
-	private DatabaseConfig databaseConfig;
 	
 	@Autowired
 	@Qualifier("mysqlEntityManagerFactory")
@@ -52,27 +49,27 @@ public class JpaChunkConfig extends DefaultBatchConfigurer {
 	@Bean
 	public Step jpaChunkStep() {
 		return stepBuilderFactory.get("JPA Chunk Step")
-				.<CustomerJpa, CustomerJpa>chunk(3)
+				.<Customer, Customer>chunk(3)
 				.reader(jpaCursorItemReader())
 				.writer(jpaItemWriter())
 				.transactionManager(jpaTransactionManager)
 				.build();
 	}
 	
-	public JpaCursorItemReader<CustomerJpa> jpaCursorItemReader() {
-		JpaCursorItemReader<CustomerJpa> jpaCursorItemReader = 
-				new JpaCursorItemReader<CustomerJpa>();
+	public JpaCursorItemReader<Customer> jpaCursorItemReader() {
+		JpaCursorItemReader<Customer> jpaCursorItemReader = 
+				new JpaCursorItemReader<Customer>();
 		
 		jpaCursorItemReader.setEntityManagerFactory(mysqlEntityManagerFactory);
 		
-		jpaCursorItemReader.setQueryString("From CustomerJpa");
+		jpaCursorItemReader.setQueryString("From Customer");
 		
 		return jpaCursorItemReader;
 	}
 	
-	public JpaItemWriter<CustomerJpa> jpaItemWriter() {
-		JpaItemWriter<CustomerJpa> jpaItemWriter = 
-				new JpaItemWriter<CustomerJpa>();
+	public JpaItemWriter<Customer> jpaItemWriter() {
+		JpaItemWriter<Customer> jpaItemWriter = 
+				new JpaItemWriter<Customer>();
 		
 		jpaItemWriter.setEntityManagerFactory(newmysqlEntityManagerFactory);
 		

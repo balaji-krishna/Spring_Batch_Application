@@ -1,4 +1,4 @@
-package com.springBatch.app.entity;
+package com.springBatch.app.dto;
 
 public class JobParametersRequest {
 	

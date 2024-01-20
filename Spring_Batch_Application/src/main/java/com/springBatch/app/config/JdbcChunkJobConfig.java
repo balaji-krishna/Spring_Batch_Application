@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
-import com.springBatch.app.entity.CustomerJdbc;
+import com.springBatch.app.entity.Customer;
 
 @Configuration
 public class JdbcChunkJobConfig {
@@ -41,25 +41,25 @@ public class JdbcChunkJobConfig {
 	@Bean
 	public Step jdbcChunkStep() {
 		return stepBuilderFactory.get("JDBC Chunk Step")
-				.<CustomerJdbc, CustomerJdbc>chunk(3)
+				.<Customer, Customer>chunk(3)
 				.reader(jdbcItemReader())
 				.writer(jdbcItemWriter())
 				.build();
 	}
 	
 	@Bean
-	public JdbcCursorItemReader<CustomerJdbc> jdbcItemReader() {
-		JdbcCursorItemReader<CustomerJdbc> jdbcCursorItemReader = 
-				new JdbcCursorItemReader<CustomerJdbc>();
+	public JdbcCursorItemReader<Customer> jdbcItemReader() {
+		JdbcCursorItemReader<Customer> jdbcCursorItemReader = 
+				new JdbcCursorItemReader<Customer>();
 		
 		jdbcCursorItemReader.setDataSource(databaseConfig.datasource());
 		jdbcCursorItemReader.setSql(
 				"select id, first_name as firstName, last_name as lastName,"
 				+ "email from customers_info");
 		
-		jdbcCursorItemReader.setRowMapper(new BeanPropertyRowMapper<CustomerJdbc>() {
+		jdbcCursorItemReader.setRowMapper(new BeanPropertyRowMapper<Customer>() {
 			{
-				setMappedClass(CustomerJdbc.class);
+				setMappedClass(Customer.class);
 			}
 		});
 		
@@ -67,9 +67,9 @@ public class JdbcChunkJobConfig {
 	}
 	
 	@Bean
-	public JdbcBatchItemWriter<CustomerJdbc> jdbcItemWriter() {
-		JdbcBatchItemWriter<CustomerJdbc> jdbcBatchItemWriter = 
-				new JdbcBatchItemWriter<CustomerJdbc>();
+	public JdbcBatchItemWriter<Customer> jdbcItemWriter() {
+		JdbcBatchItemWriter<Customer> jdbcBatchItemWriter = 
+				new JdbcBatchItemWriter<Customer>();
 		
 		jdbcBatchItemWriter.setDataSource(databaseConfig.newcustomerdatasource());
 		jdbcBatchItemWriter.setSql(
@@ -77,10 +77,10 @@ public class JdbcChunkJobConfig {
 				+ "values (?,?,?,?)");
 		
 		jdbcBatchItemWriter.setItemPreparedStatementSetter(
-				new ItemPreparedStatementSetter<CustomerJdbc>() {
+				new ItemPreparedStatementSetter<Customer>() {
 			
 			@Override
-			public void setValues(CustomerJdbc item, PreparedStatement ps) throws SQLException {
+			public void setValues(Customer item, PreparedStatement ps) throws SQLException {
 				ps.setLong(1, item.getId());
 				ps.setString(2, item.getFirstName());
 				ps.setString(3, item.getLastName());

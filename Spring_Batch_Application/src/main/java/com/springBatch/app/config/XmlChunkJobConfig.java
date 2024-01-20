@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
-import com.springBatch.app.entity.CustomerXml;
+import com.springBatch.app.entity.Customer;
 
 @Configuration
 public class XmlChunkJobConfig {
@@ -36,7 +36,7 @@ public class XmlChunkJobConfig {
 	@Bean
 	public Step xmlChunkStep() {
 		return stepBuilderFactory.get("Xml Chunk Step")
-				.<CustomerXml, CustomerXml>chunk(2)
+				.<Customer, Customer>chunk(2)
 				.reader(staxEventItemReader(null))
 				.writer(staxEventItemWriter(null))
 				.build();
@@ -44,17 +44,17 @@ public class XmlChunkJobConfig {
 	
 	@StepScope
 	@Bean
-	public StaxEventItemReader<CustomerXml> staxEventItemReader(
+	public StaxEventItemReader<Customer> staxEventItemReader(
 			@Value("#{jobParameters['inputXml']}") FileSystemResource fileSystemResource) {
-		StaxEventItemReader<CustomerXml> staxEventItemReader = 
-				new StaxEventItemReader<CustomerXml>();
+		StaxEventItemReader<Customer> staxEventItemReader = 
+				new StaxEventItemReader<Customer>();
 		
 		staxEventItemReader.setResource(fileSystemResource);
 		staxEventItemReader.setStrict(false);
 		staxEventItemReader.setFragmentRootElementName("customer");
 		staxEventItemReader.setUnmarshaller(new Jaxb2Marshaller() {
 			{
-				setClassesToBeBound(CustomerXml.class);
+				setClassesToBeBound(Customer.class);
 			}
 		});
 		
@@ -63,17 +63,17 @@ public class XmlChunkJobConfig {
 	
 	@StepScope
 	@Bean
-	public StaxEventItemWriter<CustomerXml> staxEventItemWriter(
+	public StaxEventItemWriter<Customer> staxEventItemWriter(
 			@Value("#{jobParameters['outputXml']}") FileSystemResource fileSystemResource) {
-		StaxEventItemWriter<CustomerXml> staxEventItemWriter = 
-				new StaxEventItemWriter<CustomerXml>();
+		StaxEventItemWriter<Customer> staxEventItemWriter = 
+				new StaxEventItemWriter<Customer>();
 		
 		staxEventItemWriter.setResource(fileSystemResource);
 		staxEventItemWriter.setRootTagName("customers");
 		
 		staxEventItemWriter.setMarshaller(new Jaxb2Marshaller() {
 			{
-				setClassesToBeBound(CustomerXml.class);
+				setClassesToBeBound(Customer.class);
 			}
 		});
 		

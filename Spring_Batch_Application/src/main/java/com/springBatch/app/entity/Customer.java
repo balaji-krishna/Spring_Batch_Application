@@ -1,11 +1,23 @@
 package com.springBatch.app.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@Entity
+@Table(name = "customers_info")
+@XmlRootElement(name = "customer")
 public class Customer {
 
+	@Id
 	private Long id;
 
+	@Column(name = "first_name")
 	private String firstName;
 
+	@Column(name = "last_name")
 	private String lastName;
 
 	private String email;
