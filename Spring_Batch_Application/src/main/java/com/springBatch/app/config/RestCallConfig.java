@@ -27,7 +27,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
 
-import com.springBatch.app.entity.CustomerCsv;
+import com.springBatch.app.entity.CustomerRequest;
 import com.springBatch.app.entity.CustomerResponse;
 import com.springBatch.app.service.RestCallService;
 
@@ -55,7 +55,7 @@ public class RestCallConfig {
 	@Bean
 	public Step restCallFirstChunkStep() {
 		return stepBuilderFactory.get("Rest Call Chunk Step")
-				.<CustomerResponse, CustomerCsv>chunk(2)
+				.<CustomerResponse, CustomerRequest>chunk(2)
 				.reader(restItemReaderAdapter())
 				.writer(flatFileRestItemWriter(null))
 				.build();
@@ -75,10 +75,10 @@ public class RestCallConfig {
 	
 	@Bean
 	@StepScope
-	public FlatFileItemWriter<CustomerCsv> flatFileRestItemWriter(
+	public FlatFileItemWriter<CustomerRequest> flatFileRestItemWriter(
 			@Value("#{jobParameters['outputRestCsvFile']}") FileSystemResource fileSystemResource) {
-		FlatFileItemWriter<CustomerCsv> flatFileItemWriter = 
-				new FlatFileItemWriter<CustomerCsv>();
+		FlatFileItemWriter<CustomerRequest> flatFileItemWriter = 
+				new FlatFileItemWriter<CustomerRequest>();
 		
 		flatFileItemWriter.setResource(fileSystemResource);
 		
@@ -89,10 +89,10 @@ public class RestCallConfig {
 			}
 		});
 		
-		BeanWrapperFieldExtractor<CustomerCsv> beanWrapperFieldExtractor = new BeanWrapperFieldExtractor<CustomerCsv>();
+		BeanWrapperFieldExtractor<CustomerRequest> beanWrapperFieldExtractor = new BeanWrapperFieldExtractor<CustomerRequest>();
 		beanWrapperFieldExtractor.setNames(new String[] {"id", "firstName", "lastName", "email"});
 		
-		DelimitedLineAggregator<CustomerCsv> delimitedLineAggregator = new DelimitedLineAggregator<CustomerCsv>();
+		DelimitedLineAggregator<CustomerRequest> delimitedLineAggregator = new DelimitedLineAggregator<CustomerRequest>();
 		delimitedLineAggregator.setFieldExtractor(beanWrapperFieldExtractor);
 		flatFileItemWriter.setLineAggregator(delimitedLineAggregator);
 		
@@ -109,7 +109,7 @@ public class RestCallConfig {
 	@Bean
 	public Step restCallSecondChunkStep() {
 		return stepBuilderFactory.get("Rest Call Chunk Step")
-				.<CustomerCsv, CustomerCsv>chunk(2)
+				.<CustomerRequest, CustomerRequest>chunk(2)
 				.reader(flatFileRestItemReader(null))
 				.writer(restItemWriterAdapter())
 				.build();
@@ -117,9 +117,9 @@ public class RestCallConfig {
 	
 	@Bean
 	@StepScope
-	public ItemWriterAdapter<CustomerCsv> restItemWriterAdapter() {
-		ItemWriterAdapter<CustomerCsv> itemWriterAdapter = 
-				new ItemWriterAdapter<CustomerCsv>();
+	public ItemWriterAdapter<CustomerRequest> restItemWriterAdapter() {
+		ItemWriterAdapter<CustomerRequest> itemWriterAdapter = 
+				new ItemWriterAdapter<CustomerRequest>();
 		
 		itemWriterAdapter.setTargetObject(restCallService);
 		itemWriterAdapter.setTargetMethod("restCallToCreateCustomer");
@@ -129,22 +129,22 @@ public class RestCallConfig {
 	
 	@StepScope
 	@Bean
-	public FlatFileItemReader<CustomerCsv> flatFileRestItemReader(
+	public FlatFileItemReader<CustomerRequest> flatFileRestItemReader(
 			@Value("#{jobParameters['inputRestCsvFile']}") FileSystemResource fileSystemResource) {
-		FlatFileItemReader<CustomerCsv> flatFileItemReader = 
-				new FlatFileItemReader<CustomerCsv>();
+		FlatFileItemReader<CustomerRequest> flatFileItemReader = 
+				new FlatFileItemReader<CustomerRequest>();
 		
 		flatFileItemReader.setResource(fileSystemResource);
 		
-		DefaultLineMapper<CustomerCsv> defaultLineMapper = new DefaultLineMapper<CustomerCsv>();
+		DefaultLineMapper<CustomerRequest> defaultLineMapper = new DefaultLineMapper<CustomerRequest>();
 
 		DelimitedLineTokenizer delimitedLineTokenizer = new DelimitedLineTokenizer();
 		delimitedLineTokenizer.setNames("ID", "First Name", "Last Name", "Email");
 
 		defaultLineMapper.setLineTokenizer(delimitedLineTokenizer);
 
-		BeanWrapperFieldSetMapper<CustomerCsv> fieldSetMapper = new BeanWrapperFieldSetMapper<CustomerCsv>();
-		fieldSetMapper.setTargetType(CustomerCsv.class);
+		BeanWrapperFieldSetMapper<CustomerRequest> fieldSetMapper = new BeanWrapperFieldSetMapper<CustomerRequest>();
+		fieldSetMapper.setTargetType(CustomerRequest.class);
 
 		defaultLineMapper.setFieldSetMapper(fieldSetMapper);
 

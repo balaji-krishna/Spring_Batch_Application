@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.springBatch.app.entity.CustomerCsv;
+import com.springBatch.app.entity.CustomerRequest;
 import com.springBatch.app.entity.CustomerResponse;
 
 @Service
@@ -39,7 +39,7 @@ public class RestCallService {
 		return null;
 	}
 	
-	public CustomerResponse restCallToCreateCustomer(CustomerCsv customerCsv) {
+	public CustomerResponse restCallToCreateCustomer(CustomerRequest customerCsv) {
 		RestTemplate restTemplate = new RestTemplate();
 		
 		return restTemplate.postForObject("http://localhost:9090/restApi/saveCustomer", 
