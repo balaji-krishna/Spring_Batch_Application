@@ -35,7 +35,7 @@ public class JsonSkipListener implements SkipListener<Customer, Customer> {
 		try (FileWriter fileWriter = new FileWriter(new File(filePath), true)) {
 			fileWriter.write(data + "," + new Date() + "\n");
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 	}
 
