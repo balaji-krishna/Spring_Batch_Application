@@ -22,12 +22,12 @@ Functionalities covered in this project are:
 
 Operation of jobs:
 
-# Based on the job name provided in the rest api "/startJob/{jobName}", the respective job is triggered.
-# Based on the job execution id provided in the rest api "/stop/{jobExecutionId}", the respective job is stopped.
-# The paths of input and output files are provided in the request body as job parameters.
-# Async functionality is implemented to return a response to notify the sender that the requested job is started.
-# Job scheduling functionality is implemented for basic chunk job that runs on every minute.
-# Fault tolerant functionality is implemented at the time of reading and writing data in specific jobs. The bad records are skipped and retried and captured in text files. 
+1. Based on the job name provided in the rest api "/startJob/{jobName}", the respective job is triggered.
+2. Based on the job execution id provided in the rest api "/stop/{jobExecutionId}", the respective job is stopped.
+3. The paths of input and output files are provided in the request body as job parameters.
+4. Async functionality is implemented to return a response to notify the sender that the requested job is started.
+5. Job scheduling functionality is implemented for basic chunk job that runs on every minute.
+6. Fault tolerant functionality is implemented at the time of reading and writing data in specific jobs. The bad records are skipped and retried and captured in text files. 
 
 Job Results:
 
