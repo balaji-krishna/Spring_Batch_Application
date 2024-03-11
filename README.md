@@ -1,9 +1,10 @@
 This project demonstrates the functionalities that are used in spring batch. This project consists of 2 applications.
+
 i. Spring Batch Application
 ii. Spring Boot Rest Api Application
 
-This Spring Batch Application consists of all the basic functionalities in spring batch.
-This Spring Boot Rest Api Application consists of two rest apis that retrieve a list of entity and save a entity.
+The Spring Batch Application consists of all the basic functionalities in spring batch.
+The Spring Boot Rest Api Application consists of two rest apis that retrieve a list of entity and save a entity.
 
 Functionalities covered in this project are:
 
