@@ -1,9 +1,11 @@
 This project demonstrates the functionalities that are used in spring batch. This project consists of 2 applications.
 
 i. Spring Batch Application
+
 ii. Spring Boot Rest Api Application
 
 The Spring Batch Application consists of all the basic functionalities in spring batch.
+
 The Spring Boot Rest Api Application consists of two rest apis that retrieve a list of entity and save a entity.
 
 Functionalities covered in this project are:
@@ -28,4 +30,5 @@ Operation of jobs:
 # Fault tolerant functionality is implemented at the time of reading and writing data in specific jobs. The bad records are skipped and retried and captured in text files. 
 
 Job Results:
+
 The input and output of the jobs can be referred in the inputFiles and outputFiles folders.
